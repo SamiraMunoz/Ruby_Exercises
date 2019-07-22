@@ -1,16 +1,16 @@
 class Fibonacci
-  def sum_even()
-    a,b,c = 0,1,0
+  def sum_even
     fibonacci = []
-    while c < 4_000_000
+    a,b,c = 1,1,1
+    loop do
+      fibonacci << c if c.even? 
       c = a + b
-      fibonacci << c
       a = b
       b = c
+      break if c > 4_000_000
     end
-    sum = fibonacci.select { |c| c.even? && c < 4_000_000}.sum
-    puts "The sum of the even values of the fibonacci series up to 4000000 is: #{sum}"
+    fibonacci.inject { |sum, n| sum + n } 
   end
 end
-exercise = Fibonacci.new
-exercise.sum_even()
+sum_even_fibonacci = Fibonacci.new
+puts "The sum of the even values of the fibonacci series up to 4000000 is: #{sum_even_fibonacci.sum_even}."
