@@ -4,5 +4,5 @@ class Multiples_3_and_5
       puts "The sum of all multiples of 3 or 5 below 1000 is: #{sum}"
   end
 end
-exercise = Multiples_3_and_5.new
-exercise.sum_multiples()
+sum_below_1000 = Multiples_3_and_5.new
+sum_below_1000.sum_multiples()
