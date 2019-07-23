@@ -1,12 +1,17 @@
-class Factors
-  def factor(finality)
-    puts "The factors of #{finality} are: "
-    2.upto(finality) do | num |
-      next if finality % num != 0
-      finality = finality/num
-      puts "#{num} is factor."
+class PrimeFactors
+  def initialize(largest_factor)
+    @largest_factor = largest_factor
+  end
+  def largest_prime_factor
+    factors = []
+    2.upto(@largest_factor) do |num|
+      next if @largest_factor % num != 0
+      factors << num
+      @largest_factor = @largest_factor/num
     end
-   end
+    factors.each { |num| num }
+  end
 end
-exercise = Factors.new
-exercise.factor(13195)
+puts "The factors of 13195 are: "
+factor = PrimeFactors.new(13195)
+puts factor.largest_prime_factor
