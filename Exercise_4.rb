@@ -1,16 +1,16 @@
 class Palindrome
-  def palindrome_product()
+  def three_digit_product
     mayor = 0
-    100.upto(999) do |x|
+    700.upto(999) do |x|
       x.upto(999) do |y|
-        num = (x*y).to_s
+        num = (x * y).to_s
         next if num != num.reverse
-          num = num.to_i
-          mayor = num if mayor < num
+        num = num.to_i
+        mayor = num if mayor < num
       end
     end
-    puts "Largest palindrome made from the product of two 3-digit numbers is: #{mayor}" 
+    mayor
   end
 end
-exercise = Palindrome.new
-exercise.palindrome_product()
+palindrome = Palindrome.new
+puts "Largest palindrome made from the product of two 3-digit numbers is: #{palindrome.three_digit_product}" 
