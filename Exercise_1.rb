@@ -5,4 +5,3 @@ class Multiples3and5
 end
 sum_below_1000 = Multiples3and5.new
 puts "The sum of all multiples of 3 or 5 below 1000 is: #{sum_below_1000.sum_multiples}"
-
