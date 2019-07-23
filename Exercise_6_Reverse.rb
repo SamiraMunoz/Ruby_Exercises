@@ -9,5 +9,6 @@ end
 puts "Enter a word"
 word = (gets.chomp).downcase
 is_palindrome = Palindrome.new(word)
-puts is_palindrome.equal_letters? == true ? "Is palindrome" : "It's not palindrome" 
+puts is_palindrome.equal_letters? ? "Is palindrome" : "It's not palindrome" 
+
 
