@@ -12,7 +12,7 @@ def sum_even
   end
   fibonacci.inject { |sum, n| sum + n } 
 end
-class DifferenceSquare < Minitest::Test
+class Fibonacci < Minitest::Test
   def test_multiples
     assert_equal 4613732, sum_even
   end
