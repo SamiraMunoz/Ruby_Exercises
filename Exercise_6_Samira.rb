@@ -10,10 +10,10 @@ class Palindrome
       counter +=1 if @word[letter]==@word[letters-1]
       letters -= 1
     end
-    counter == end_cycle ? true : false
+    counter == end_cycle 
   end
 end
 puts "Enter a word"
 word = (gets.chomp).downcase
 is_palindrome = Palindrome.new(word)
-puts is_palindrome.palindrome_word == true ? "Is palindrome" : "It's not palindrome"
+puts is_palindrome.palindrome_word ? "Is palindrome" : "It's not palindrome"
