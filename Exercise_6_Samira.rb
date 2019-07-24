@@ -2,7 +2,7 @@ class Palindrome
   def initialize(word)
     @word = word
   end
-  def palindrome_word
+  def palindrome_word?
     counter = -1 
     letters = @word.length
     end_cycle = (letters/2)-1
@@ -15,5 +15,5 @@ class Palindrome
 end
 puts "Enter a word"
 word = (gets.chomp).downcase
-is_palindrome = Palindrome.new(word)
-puts is_palindrome.palindrome_word ? "Is palindrome" : "It's not palindrome"
+verification = Palindrome.new(word)
+puts verification.palindrome_word? ? "Is palindrome" : "It's not palindrome"
