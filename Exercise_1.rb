@@ -1,6 +1,6 @@
 class Multiples3and5
   def sum_multiples
-    sum  = (1...1000).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
+    (1...1000).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
   end
 end
 sum_below_1000 = Multiples3and5.new
