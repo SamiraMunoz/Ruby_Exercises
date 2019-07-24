@@ -1,11 +1,10 @@
 require 'minitest/autorun'
+require '../Exercise_1_Parametros.rb'
 
-def sum_multiples(end_number)
-  (1...end_number).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
-end
-class DifferenceSqua < Minitest::Test   
+class Multiples3a5 < Minitest::Test   
   def test_multiples
-    assert_equal 233168, sum_multiples(1000)
+    multiplos_3_and_5 = Multiples3and5.new
+    assert_equal 233168, multiplos_3_and_5.sum_multiples
   end
 end
 
