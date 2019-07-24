@@ -3,7 +3,7 @@ class Multiples3and5
     @num = num
   end
   def sum_multiples
-    sum  = (1...@num).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
+    (1...@num).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
   end
 end
 puts "Enter until what value you want to find the sum of all the multiples of 3 or 5"
