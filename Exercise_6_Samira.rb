@@ -15,5 +15,5 @@ class Palindrome
 end
 puts "Enter a word"
 word = (gets.chomp).downcase
-verification = Palindrome.new(word)
-puts verification.palindrome_word? ? "Is palindrome" : "It's not palindrome"
+equal_reading = Palindrome.new(word)
+puts equal_reading.palindrome_word? ? "Is palindrome" : "It's not palindrome"

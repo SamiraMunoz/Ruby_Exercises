@@ -8,7 +8,7 @@ class Palindrome
 end
 puts "Enter a word"
 word = (gets.chomp).downcase
-is_palindrome = Palindrome.new(word)
-puts is_palindrome.equal_letters? ? "Is palindrome" : "It's not palindrome" 
+equal_reading = Palindrome.new(word)
+puts equal_reading.equal_letters? ? "Is palindrome" : "It's not palindrome" 
 
 
