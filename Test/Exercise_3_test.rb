@@ -1,17 +1,10 @@
 require 'minitest/autorun'
+require '../Exercise_3.rb'
 
-def largest_prime_factor(largest_factor)
-  factor = 0
-  2.upto(largest_factor) do |num|
-    next if largest_factor % num != 0
-    factor = num
-    largest_factor = largest_factor/num
-  end
-  factor
-end
-class PrimeFactors < Minitest::Test
+class PrimeFactor < Minitest::Test
   def test_multiples
-    assert_equal 29, largest_prime_factor(13195)
+    factor = PrimeFactors.new(13195)
+    assert_equal 29, factor.largest_prime_factor
   end
 end
 
