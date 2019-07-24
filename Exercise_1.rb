@@ -1,6 +1,7 @@
 class Multiples3and5
   def sum_multiples
-    (1...1000).select { |num| (num % 3) == 0 || (num % 5) == 0 }.sum
+    mul_3_and_5 = (1...1000).select { |num| (num % 3) == 0 || (num % 5) == 0 }
+    mul_3_and_5.inject { |sum, num| sum + num }
   end
 end
 sum_below_1000 = Multiples3and5.new
