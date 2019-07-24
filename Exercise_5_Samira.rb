@@ -1,14 +1,20 @@
 class Prime10001
   def primes
-    finality,counter = 2,0
-    loop do
-      num_prime = (1..finality).select { | num | finality % num == 0 }.count
-      counter += 1 if num_prime == 2
-      finality += 1
-      break if counter>10001
+    first_primes = [2]
+    c,num,counter = 1,3,0
+    while c < 10001
+      first_primes.each do |prime|
+        counter += 1 if num % prime != 0
+      end 
+      if counter == first_primes.length
+        first_primes << num
+        c += 1
+      end
+      num += 1
+      counter = 0
     end
-    finality-1
+    num-1
   end
 end
 prime = Prime10001.new
-puts "The 10 001st prime number is: #{prime.primes}."
+puts "The 10001st prime number is: #{prime.primes}."
