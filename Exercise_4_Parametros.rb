@@ -4,7 +4,7 @@ class Palindrome
   end
   def digit_product
     begin
-      raise ArgumentError, "El argumento no es número entero." unless @digits > 1
+      raise ArgumentError, "The argument is not an integer greater than 1" unless @digits > 1
       start_digits = ("#{7}#{"0"*(@digits-1)}").to_i
       end_digits = ("#{9}#{"9"*(@digits-1)}").to_i
       mayor = 0
