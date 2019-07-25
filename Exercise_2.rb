@@ -12,5 +12,5 @@ class Fibonacci
     fibonacci.inject { |sum, n| sum + n } 
   end
 end
-sum_even_fibonacci = Fibonacci.new
-puts "The sum of the even values of the fibonacci series up to 4000000 is: #{sum_even_fibonacci.sum_even}."
+
+

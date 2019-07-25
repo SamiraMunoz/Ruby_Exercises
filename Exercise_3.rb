@@ -12,5 +12,3 @@ class PrimeFactors
     factor
   end
 end
-factor = PrimeFactors.new(13195)
-puts "The largest prime factor is: #{factor.largest_prime_factor}."
