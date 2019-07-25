@@ -12,5 +12,3 @@ class Palindrome
     mayor
   end
 end
-palindrome = Palindrome.new
-puts "Largest palindrome made from the product of two 3-digit numbers is: #{palindrome.three_digit_product}" 
