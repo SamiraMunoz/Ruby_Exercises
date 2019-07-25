@@ -3,12 +3,12 @@ class PrimeFactors
     @largest_factor = largest_factor
   end
   def largest_prime_factor
-    factor = 0
+    factors = 0
     2.upto(@largest_factor) do |num|
       next if @largest_factor % num != 0
-      factor = num
+      factors = num
       @largest_factor = @largest_factor/num
     end
-    factor
+    factors
   end
 end
