@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../Exercise:4.rb'
+require '../Exercise_4.rb'
 
 class Palindrom < Minitest::Test
   def test_multiples
