@@ -24,4 +24,10 @@ class Palindrom < Minitest::Test
       palindrome.digit_product
     end
   end
+  def test_multiples_parameter_1
+    palindrome = Palindrome.new(1)
+    assert_raises ArgumentError do 
+      palindrome.digit_product
+    end
+  end
 end
