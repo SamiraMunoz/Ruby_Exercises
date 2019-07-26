@@ -6,17 +6,17 @@ class Palindrome
     begin
       @digits = digit.to_i 
     rescue digit.class == String
-      msg = "The argunment is a String"
-      raise ArgumentError, msg, caller 
-      return msg
+      mesg = "The argunment is a String"
+      raise ArgumentError, mesg, caller 
+      return mesg
     rescue digit < 1
-      msg = "The argument is not an integer greater than 1"
-      raise ArgumentError, msg , caller 
-      return msg
+      mesg = "The argument is not an integer greater than 1"
+      raise ArgumentError, mesg , caller 
+      return mesg
     rescue digit.nil?
-      msg = "The argument is empty"
-      raise ArgumentError, msg , caller
-      return msg
+      mesg = "The argument is empty"
+      raise ArgumentError, mesg , caller
+      return mesg
     end
   end
   def start_digits
