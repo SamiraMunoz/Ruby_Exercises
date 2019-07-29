@@ -1,9 +1,15 @@
 require 'prime'
-class Prime10001
+require_relative 'Exercise_5_Validation.rb'
+
+class PrimeNumber 
+  include Validation
+  
+  def initialize(number)
+    @number = parse_number(number)
+  end
+
   def primes
-    prime = Prime.first 10001
+    prime = Prime.first @number
     prime.max
   end
 end
-prime = Prime10001.new
-puts "The 10 001st prime number is: #{prime.primes}"
