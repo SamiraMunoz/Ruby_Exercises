@@ -1,7 +1,7 @@
 require 'prime'
 require_relative 'Exercise_5_Validation.rb'
 
-class PrimeNumber < Validation
+class PrimeNumber 
   include Validation
   
   def initialize(number)
