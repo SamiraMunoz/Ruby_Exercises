@@ -4,8 +4,7 @@ class InvalidFloatError < StandardError; end
 class InvalidNegativeError < StandardError; end
 class InvalidNumberError < StandardError; end
 
-
-class Validation 
+module Validation 
   def parse_number(end_number)
     return if invalid_number?(end_number)
     end_number.to_i

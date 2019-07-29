@@ -1,6 +1,8 @@
 require_relative 'Exercise_8_Validation.rb'
 
-class DifferenceSquare < Validation
+class DifferenceSquare 
+  include Validation
+  
   def initialize(end_number)
     @end_number = self.parse_number(end_number)
   end
