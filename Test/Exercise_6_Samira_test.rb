@@ -12,6 +12,11 @@ class Palindrom < Minitest::Test
     equal_reading = Palindrome.new('Pop')
     assert equal_reading.palindrome_word?
   end
+  # when the parameter is 'sopa' I should expect the response to be false
+  def test_palindrome_not
+    equal_reading = Palindrome.new('sopa')
+    assert_equal false, equal_reading.palindrome_word?
+  end  
   # when the parameter is 2 I should expect the response to be 'The argunment is a numeric'
   def test_palindrome_parameter_integer
     err = assert_raises InvalidNumericError do
@@ -26,6 +31,7 @@ class Palindrom < Minitest::Test
     end
     assert_match 'The argument is empty', err.message
   end
+   # when the parameter is 2.3 I should expect the response to be 'The argunment is a numeric'
   def test_palindrome_parameter_float
     err = assert_raises InvalidNumericError do
       Palindrome.new(2.3)
