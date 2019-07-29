@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../Exercise_8_Parametros.rb'
+require '../Exercise_8.rb'
 
 describe DifferenceSquare do 
   it "Diference square up to 10" do
