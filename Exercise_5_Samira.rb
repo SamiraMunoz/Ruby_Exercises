@@ -1,8 +1,10 @@
 require_relative 'Exercise_5_Validation.rb'
 
 class Prime
+  include Validation
+  
   def initialize(number)
-    @number = self.parse_number(number)
+    @number = parse_number(number)
   end
 
   def primes

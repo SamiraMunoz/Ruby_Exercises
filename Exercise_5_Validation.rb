@@ -3,7 +3,7 @@ class InvalidStringError < StandardError; end
 class InvalidNumberError < StandardError; end
 class InvalidFloatError < StandardError; end
 
-class Validation
+module Validation
   def parse_number(number)
     return if invalid_number?(number)
     number.to_i
