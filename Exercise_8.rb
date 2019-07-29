@@ -5,6 +5,3 @@ class DifferenceSquare
     sum_num -  sum_square
   end
 end
-difference = DifferenceSquare.new
-difference.sum_square
-puts "The difference is #{difference.sum_square}"
