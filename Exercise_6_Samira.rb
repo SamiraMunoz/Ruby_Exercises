@@ -1,7 +1,36 @@
+class EmptyWordError < StandardError; end
+class InvalidNumericError < StandardError; end
+
 class Palindrome
   def initialize(word)
-    @word = word
+    @word = self.parse_word(word)
   end
+
+  def parse_word(word)
+    return if invalid_word?(word)
+    word.downcase
+  end  
+  
+  def invalid_word?(word)
+    if word_empty?(word)
+      raise EmptyWordError, 'The argument is empty'
+    elsif word_integer?(word) || word_float?(word)
+      raise InvalidNumericError, 'The argunment is a numeric'
+    end
+  end  
+
+  def word_empty?(word)
+    word.nil? || word == ''
+  end
+
+  def word_integer?(word)
+    word.class == Integer
+  end
+
+  def word_float?(word)
+    word.class == Float
+  end
+
   def palindrome_word?
     counter = -1 
     letters = @word.length
@@ -13,7 +42,3 @@ class Palindrome
     counter == end_cycle 
   end
 end
-puts "Enter a word"
-word = (gets.chomp).downcase
-equal_reading = Palindrome.new(word)
-puts equal_reading.palindrome_word? ? "Is palindrome" : "It's not palindrome"
