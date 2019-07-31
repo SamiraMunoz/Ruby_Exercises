@@ -78,4 +78,8 @@ describe User do
     err = lambda { User.new(18,'Samira','Munoz','gss',34,nil)}.must_raise(IdValidationError)
     err.message.must_match 'ID already exists'
   end
+  it "count users" do
+    users = User.new(187,'Samira','Munoz','gss',34,nil)
+    users.count.must_equal(1)
+  end
 end
