@@ -61,5 +61,8 @@ class User
     hash = { id: @id ,first_name: @first_name, last_name: @last_name, email: @email, age: @age,addres: @addres }
     @@users << hash
   end
-end
 
+  def count 
+    @@users.count
+  end
+end
