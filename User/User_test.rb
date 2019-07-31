@@ -82,4 +82,8 @@ describe User do
     users = User.new(187,'Samira','Munoz','gss',34,nil)
     users.count.must_equal(1)
   end
+  it "when parameters are correct" do
+    users = User.new(300,'Samira','Muñoz','Smu@gmail',19,nil)
+    users.all.must_be_instance_of(Array)
+  end
 end
