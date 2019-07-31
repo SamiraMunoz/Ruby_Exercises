@@ -58,7 +58,7 @@ class User
 
   def create
     hash = Hash.new
-    hash = { id: @id ,first_name: @first_name, last_name: @last_name, email: @email, age: @age,addres: @addres }
+    hash = { id: @id ,first_name: @first_name, last_name: @last_name, email: @email, age: @age,addres: @addres}
     @@users << hash
   end
 
