@@ -3,7 +3,7 @@ require_relative 'User.rb'
 
 describe User do
   it "when parameters are correct" do
-    users = User.new('1047','Samira','Muñoz','Smu@gmail',19,nil)
+    users = User.new('1047','Samira','Muñoz','Sm@gmail',19,nil)
     users.create.must_be_instance_of(Array)
   end
   it "when ID is integer" do
@@ -81,5 +81,9 @@ describe User do
   it "count users" do
     users = User.new(187,'Samira','Munoz','gss',34,nil)
     users.count.must_equal(1)
+  end
+  it "when parameters are correct" do
+    users = User.new(300,'Samira','Muñoz','Smu@gmail',19,nil)
+    users.all.must_be_instance_of(Array)
   end
 end
