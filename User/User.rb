@@ -1,6 +1,5 @@
 require_relative 'User_Validation.rb'
 class EmailValidationError < StandardError; end
-class IdValidationError < StandardError; end
 class NotFound < StandardError; end
 
 class User 
@@ -40,7 +39,7 @@ class User
   def find
     user_find = $users.select{|user| user[:id] == hash[:id]}
     if user_find.empty?
-      raise IdValidationError, 'ID not found'
+      raise NotFound, 'ID not found'
     else
       user_find 
     end
@@ -105,4 +104,19 @@ class User
       users_where
     end 
   end
+
+  def destroy
+    user_destroy = false
+    $users.each do |user|
+      if user[:id_hash] == @id
+        $users.delete(user) 
+        user_destroy = true
+      end
+    end 
+    if user_destroy
+      $users 
+    else
+      raise NotFound, 'ID not found'
+    end
+  end 
 end

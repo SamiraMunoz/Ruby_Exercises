@@ -137,4 +137,11 @@ describe User do
     User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danielamunoz@gmail.com', age: 18, addres: 'calle 7'}).create
     User.new({addres: 'calle 7'}).where.must_be_instance_of(Array)
   end
+  it "Method to destroy when id exists" do 
+    User.new({id:1}).destroy.must_be_instance_of(Array)
+  end
+  it "Method to destroy  when id not found" do
+    err = lambda {User.new({id: 30}).destroy}.must_raise(NotFound)
+    err.message.must_match 'ID not found'
+  end
 end
