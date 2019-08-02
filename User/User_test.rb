@@ -73,4 +73,7 @@ describe User do
   it "Method to count" do 
     User.new.count.must_be_instance_of(Integer)
   end
+  it "Method to all" do 
+    User.new.all.must_be_instance_of(Array)
+  end
 end

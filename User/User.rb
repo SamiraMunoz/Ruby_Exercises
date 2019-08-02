@@ -32,4 +32,8 @@ class User
   def count 
     $users.count
   end
+
+  def all
+    $users
+  end
 end
