@@ -2,88 +2,72 @@ require 'minitest/autorun'
 require_relative 'User.rb'
 
 describe User do
-  it "when parameters are correct" do
-    users = User.new('1047','Samira','Muñoz','Sm@gmail',19,nil)
-    users.create.must_be_instance_of(Array)
-  end
-  it "when ID is integer" do
-    users = User.new(362,'Samira','Muñoz','gmail',20,nil)
-    users.create.must_be_instance_of(Array)
-  end
-  it "when ID is empty " do
-    err = lambda { User.new(nil,'Samira','Muñoz','Smu@gmail',21,"Calle 7") }.must_raise(EmptyError)
+  it "Method to create when first name is empty " do
+    err = lambda { User.new({id:'', first_name: '', last_name: 'Muñoz', email: 's@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(EmptyError)
     err.message.must_match 'The argument is empty'
   end
-  it "when ID is negative number" do 
-    err = lambda { User.new(-240,'Samira','Muñoz','Smu@gmail',22,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argument is negative'
+  it "Method to create when first name is integer " do
+    err = lambda { User.new({id:'', first_name: 23, last_name: 'Muñoz', email: 'sa@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argunment is a numeric'
   end
-  it "when first name is empty " do
-    err = lambda { User.new('300','','Muñoz','Smu@gmail',23,"Calle 7") }.must_raise(EmptyError)
+  it "Method to create when first name is float " do
+    err = lambda { User.new({id:'', first_name: 2.3, last_name: 'Muñoz', email: 'sam@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argunment is a numeric'
+  end
+  it "Method to create when last name is empty " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: '', email: 'sami@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(EmptyError)
     err.message.must_match 'The argument is empty'
   end
-  it "when frist name is integer" do 
-    err = lambda { User.new('777',8,'Muñoz','Smu@gmail',24,"Calle 7") }.must_raise(InvalidNumberError)
+  it "Method to create when last name is integer " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 23, email: 'samir@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
     err.message.must_match 'The argunment is a numeric'
   end
-  it "when frist name is float" do 
-    err = lambda { User.new('47',-8,'Muñoz','Smu@gmail',25,"Calle 7") }.must_raise(InvalidNumberError)
+  it "Method to create when last name is float " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 2.3, email: 'samira@gmail.com', age: 20, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
     err.message.must_match 'The argunment is a numeric'
   end
-  it "when last name is empty " do
-    err = lambda { User.new('12','Samira',nil,'Smu@gmail',26,"Calle 7") }.must_raise(EmptyError)
-    err.message.must_match 'The argument is empty'
-  end
-  it "when last name is integer" do 
-    err = lambda { User.new('98','Samira',8,'Smu@gmail',27,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argunment is a numeric'
-  end
-  it "when last name is float" do 
-    err = lambda { User.new('10','Samira',-8,'Smu@gmail',28,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argunment is a numeric'
-  end
-  it "when email is empty " do
-    err = lambda { User.new('09','Samira','Muñoz','',29,"Calle 7") }.must_raise(EmptyError)
-    err.message.must_match 'The argument is empty'
-  end
-  it "when email is integer" do 
-    err = lambda { User.new('57','Samira','Muñoz',8,30,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argunment is a numeric'
-  end
-  it "when email is float" do 
-    err = lambda { User.new('9','Samira','Muñoz',-8,31,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argunment is a numeric'
-  end
-  it "when age is empty " do
-    err = lambda { User.new('990','Samira','Muñoz','@gmai',"sam","Calle 7") }.must_raise(InvalidStringError)
+  it "Method to create when age is string " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiram@gmail.com', age: 'sam', addres: 'calle 7'}).create }.must_raise(InvalidStringError)
     err.message.must_match 'The argunment is a String'
   end
-  it "when age is negative number" do 
-    err = lambda { User.new('90','Samira','Muñoz','gss',-19,"Calle 7") }.must_raise(InvalidNumberError)
-    err.message.must_match 'The argument is negative'
+  it "Method to create when age is float " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramu@gmail.com', age: 2.3, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argument is negative or float'
   end
-  it "when age is a string number" do 
-    users = User.new('20','Samira','Muñoz','@gmail','32',nil)
-    users.create.must_be_instance_of(Array)
+  it "Method to create when age is negative " do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramu@gmail.com', age: -20, addres: 'calle 7'}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argument is negative or float'
   end
-  it "when age and addres is nil" do
-    users = User.new('65','Samira','Muñoz','il',nil,nil)
-    users.create.must_be_instance_of(Array)
+  it "Method to create when addres is float" do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramun@gmail.com', age: 20, addres: 2.3}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argument is float'
   end
-  it "when email invalid" do
-    err = lambda { User.new(69,'Samira','Munoz','gs',34,nil)}.must_raise(EmailValidationError)
+  it "Method to create when email is empty" do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: '', age: 20, addres: nil}).create }.must_raise(EmptyError)
+    err.message.must_match 'The argument is empty'
+  end
+  it "Method to create when addres is float" do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 23, age: 20, addres: nil}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argunment is a numeric'
+  end
+  it "Method to create when addres is float" do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 2.3, age: 20, addres: nil}).create }.must_raise(InvalidNumberError)
+    err.message.must_match 'The argunment is a numeric'
+  end
+  it "Method to create when email doesn't have the structure" do
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunozgmail', age: 20, addres: nil}).create }.must_raise(InvalidEmailError)
+    err.message.must_match 'Email is invalid'
+  end
+  it "Method to create when email doesn't have the structure" do
+    User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramuno@gmail.com', age: 20, addres: nil}).create
+    err = lambda { User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramuno@gmail.com', age: 20, addres: nil}).create }.must_raise(EmailValidationError)
     err.message.must_match 'Email already exists'
   end
-  it "when ID invalid" do
-    err = lambda { User.new(18,'Samira','Munoz','gss',34,nil)}.must_raise(IdValidationError)
-    err.message.must_match 'ID already exists'
+  it "Method to create when addres or age are nil" do
+    User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz@gmail.com', age: nil, addres: nil}).create.must_be_instance_of(Array)
   end
-  it "count users" do
-    users = User.new(187,'Samira','Munoz','gss',34,nil)
-    users.count.must_equal(1)
-  end
-  it "when parameters are correct" do
-    users = User.new(300,'Samira','Muñoz','Smu@gmail',19,nil)
-    users.all.must_be_instance_of(Array)
+  it "Method to create when parameters are correct" do
+    users = User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz10@gmail.com', age: 18, addres: 'calle 7'})
+    users.create.must_be_instance_of(Array)
   end
 end
