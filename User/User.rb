@@ -28,4 +28,8 @@ class User
     @hash[:id] = id
     $users << @hash
   end
+
+  def count 
+    $users.count
+  end
 end

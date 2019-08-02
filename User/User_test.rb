@@ -70,4 +70,7 @@ describe User do
     users = User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz10@gmail.com', age: 18, addres: 'calle 7'})
     users.create.must_be_instance_of(Array)
   end
+  it "Method to count" do 
+    User.new.count.must_be_instance_of(Integer)
+  end
 end
