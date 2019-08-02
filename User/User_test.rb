@@ -76,4 +76,11 @@ describe User do
   it "Method to all" do 
     User.new.all.must_be_instance_of(Array)
   end
+  it "Method to find when id exists" do 
+    User.new({id:0}).find.must_be_instance_of(Array)
+  end
+  it "Method to find when id not found" do
+    err = lambda {User.new({id: 30}).find}.must_raise(NotFound)
+    err.message.must_match 'ID not found'
+  end
 end

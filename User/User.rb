@@ -36,4 +36,13 @@ class User
   def all
     $users
   end
+
+  def find
+    user_find = $users.select{|user| user[:id] == hash[:id]}
+    if user_find.empty?
+      raise IdValidationError, 'ID not found'
+    else
+      user_find 
+    end
+  end
 end
