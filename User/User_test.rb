@@ -83,4 +83,58 @@ describe User do
     err = lambda {User.new({id: 30}).find}.must_raise(NotFound)
     err.message.must_match 'ID not found'
   end
+  it "Method to where when Id is 1 and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Munoz', email: 'd@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0}).where.must_be_instance_of(Array)
+  end
+  it "Method to where when Id is 30 and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'da@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({id: 30}).where}.must_raise(NotFound)
+    err.message.must_match 'ID not found'
+  end
+  it "Method to where when first name is Daniel and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'dan@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({first_name: 'Daniel'}).where}.must_raise(NotFound)
+    err.message.must_match 'First name not found'
+  end
+  it "Method to where when first name is Samira and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'dani@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({first_name: 'Samira'}).where.must_be_instance_of(Array)
+  end
+  it "Method to where when last name is Osorio and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danielos@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({last_name: 'Osorio'}).where}.must_raise(NotFound)
+    err.message.must_match 'Last name not found'
+  end
+  it "Method to where when last name is Munoz and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Munoz', email: 'danielo@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({last_name: 'Munoz'}).where.must_be_instance_of(Array)
+  end
+  it "Method to where when email is 'danielopok@gmail.com' and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danie@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({email: 'danielopok@gmail.com' }).where}.must_raise(NotFound)
+    err.message.must_match 'Email not found'
+  end
+  it "Method to where when email is daniel@gmail.com and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'daniel@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({email: 'daniel@gmail.com'}).where.must_be_instance_of(Array)
+  end
+  it "Method to where when age is 25 and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'daniela@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({age: 25}).where}.must_raise(NotFound)
+    err.message.must_match 'Age not found'
+  end
+  it "Method to where when age is 18 and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danielaoso@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({age: 18}).where.must_be_instance_of(Array)
+  end
+  it "Method to where when addres is calle 8 and it's not in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danielamun@gmail.com', age: 18, addres: 'calle 7'}).create
+    err = lambda {User.new({addres: 'calle 8'}).where}.must_raise(NotFound)
+    err.message.must_match 'Addres not found'
+  end
+  it "Method to where when age is 18 and it's in the array" do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'danielamunoz@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({addres: 'calle 7'}).where.must_be_instance_of(Array)
+  end
 end
