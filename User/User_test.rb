@@ -67,8 +67,7 @@ describe User do
     User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz@gmail.com', age: nil, addres: nil}).create.must_be_instance_of(Array)
   end
   it "Method to create when parameters are correct" do
-    users = User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz10@gmail.com', age: 18, addres: 'calle 7'})
-    users.create.must_be_instance_of(Array)
+    User.new({id:'', first_name: 'Samira', last_name: 'Muñoz', email: 'samiramunoz10@gmail.com', age: 18, addres: 'calle 7'}).create.must_be_instance_of(Array)
   end
   it "Method to count" do 
     User.new.count.must_be_instance_of(Integer)
@@ -77,13 +76,15 @@ describe User do
     User.new.all.must_be_instance_of(Array)
   end
   it "Method to find when id exists" do 
-    User.new({id:0}).find.must_be_instance_of(Array)
+    User.new({id: '', first_name: 'Samira', last_name: 'Pizarro', email: 'samiramunozp10@gmail.com', age: 18, addres: 'calle 7'}).create
+    users = User.new({id:0})
+    users.find.must_be_instance_of(Array)
   end
   it "Method to find when id not found" do
     err = lambda {User.new({id: 30}).find}.must_raise(NotFound)
     err.message.must_match 'ID not found'
   end
-  it "Method to where when Id is 1 and it's in the array" do
+  it "Method to where when Id is 0 and it's in the array" do
     User.new({id: '', first_name: 'Samira', last_name: 'Munoz', email: 'd@gmail.com', age: 18, addres: 'calle 7'}).create
     User.new({id: 0}).where.must_be_instance_of(Array)
   end
@@ -141,7 +142,31 @@ describe User do
     User.new({id:1}).destroy.must_be_instance_of(Array)
   end
   it "Method to destroy  when id not found" do
-    err = lambda {User.new({id: 30}).destroy}.must_raise(NotFound)
+    err = lambda {User.new({id: 50}).destroy}.must_raise(NotFound)
+    err.message.must_match 'ID not found'
+  end
+  it "Method to update first name when id is 0 " do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'mu@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0,first_name: 'sam'}).update.must_be_instance_of(Array)
+  end
+  it "Method to update last name when id is 0 " do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'mun@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0,last_name: 'Pizarro'}).update.must_be_instance_of(Array)
+  end
+  it "Method to update email name when id is 0 " do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'munoz@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0,email: 'sam@gma.com'}).update.must_be_instance_of(Array)
+  end
+  it "Method to update age when id is 0 " do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'munozpi@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0,age: 18}).update.must_be_instance_of(Array)
+  end
+  it "Method to update addres when id is 0 " do
+    User.new({id: '', first_name: 'Samira', last_name: 'Muñoz', email: 'munozpiz@gmail.com', age: 18, addres: 'calle 7'}).create
+    User.new({id: 0,addres: 'calle 9'}).update.must_be_instance_of(Array)
+  end
+  it "Method to update when id it's not in the array" do
+    err = lambda {User.new({id: 50}).update}.must_raise(NotFound)
     err.message.must_match 'ID not found'
   end
 end

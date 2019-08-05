@@ -6,7 +6,7 @@ class User
   attr_accessor :hash
   include Validation
   $users = []
-  
+
   def initialize(**user)
     @hash = user 
   end
@@ -42,6 +42,40 @@ class User
       raise NotFound, 'ID not found'
     else
       user_find 
+    end
+  end
+  
+  def update
+    counter = 0
+    $users.each do |user|
+      if user[:id] == hash[:id]
+        case
+        when user.has_key?(:first_name) && hash.has_key?(:first_name)
+          validation_first_name(self)
+          user[:first_name] = hash[:first_name] 
+        when user.has_key?(:last_name) && hash.has_key?(:last_name)
+          validation_last_name(self)
+          user[:last_name] = hash[:last_name] 
+        when user.has_key?(:email) && hash.has_key?(:email)
+          validation_email(self)
+          user[:email] = hash[:email] 
+        when user.has_key?(:age) && hash.has_key?(:age)
+          validation_age(self)
+          user[:age] = hash[:age] 
+        when user.has_key?(:addres) && hash.has_key?(:addres)
+          validation_addres(self)
+          user[:addres] = hash[:addres] 
+        else 
+          raise NotFound, 'Key not found'
+        end
+      else
+        counter += 1 
+      end
+    end
+    if counter == $users.length
+      raise NotFound, 'ID not found'
+    else
+      $users
     end
   end
 
@@ -104,11 +138,11 @@ class User
       users_where
     end 
   end
-
+  
   def destroy
     user_destroy = false
     $users.each do |user|
-      if user[:id_hash] == @id
+      if user[:id] == hash[:id]
         $users.delete(user) 
         user_destroy = true
       end
@@ -118,5 +152,5 @@ class User
     else
       raise NotFound, 'ID not found'
     end
-  end 
+  end  
 end

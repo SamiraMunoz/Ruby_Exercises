@@ -4,12 +4,31 @@ class InvalidNumberError < StandardError; end
 class InvalidEmailError < StandardError; end
 
 module Validation
-  
   def validation_create(user)
     first_name = invalid_first_name?(user.hash[:first_name])
     last_name = invalid_last_name?(user.hash[:last_name])
     email = invalid_email?(user.hash[:email])
     age = invalid_age?(user.hash[:age])
+    addres = invalid_addres?(user.hash[:addres])
+  end
+
+  def validation_first_name(user)
+    first_name = invalid_first_name?(user.hash[:first_name])
+  end
+
+  def validation_last_name(user)
+    last_name = invalid_last_name?(user.hash[:last_name])
+  end
+
+  def validation_email(user)
+    email = invalid_email?(user.hash[:email])
+  end
+
+  def validation_age(user)
+    age= invalid_age?(user.hash[:age])
+  end
+
+  def validation_addres(user)
     addres = invalid_addres?(user.hash[:addres])
   end
 
