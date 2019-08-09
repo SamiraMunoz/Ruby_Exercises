@@ -12,24 +12,60 @@ module Validation
     addres = invalid_addres?(user.hash[:addres])
   end
 
-  def validation_first_name(user)
-    first_name = invalid_first_name?(user.hash[:first_name])
+  def validation_update(hash)
+    first_name = validation_first_name?(hash[:first_name])
+    last_name = validation_last_name?(hash[:last_name])
+    email = validation_email?(hash[:email])
+    age = validation_age?(hash[:age])
+    addres = validation_addres?(hash[:addres])
   end
 
-  def validation_last_name(user)
-    last_name = invalid_last_name?(user.hash[:last_name])
+  def validation_first_name?(first_name)
+    if first_name.class != NilClass
+      if first_name_empty?(first_name)
+        raise EmptyError, 'The argument is empty'
+      elsif first_name_integer?(first_name) || first_name_float?(first_name)
+        raise InvalidNumberError, 'The argunment is a numeric'
+      end
+    end
   end
 
-  def validation_email(user)
-    email = invalid_email?(user.hash[:email])
+  def validation_last_name?(last_name)
+    if last_name.class != NilClass
+      if last_name_empty?(last_name)
+        raise EmptyError, 'The argument is empty'
+      elsif last_name_integer?(last_name) || last_name_float?(last_name)
+        raise InvalidNumberError, 'The argunment is a numeric'
+      end
+    end
   end
 
-  def validation_age(user)
-    age= invalid_age?(user.hash[:age])
+  def validation_email?(email)
+    if email.class != NilClass
+      if email_empty?(email)
+        raise EmptyError, 'The argument is empty'
+      elsif email_integer?(email) || email_float?(email)
+        raise InvalidNumberError, 'The argunment is a numeric'
+      elsif email?(email).nil?
+        raise InvalidEmailError, 'Email is invalid'
+      end
+    end
   end
 
-  def validation_addres(user)
-    addres = invalid_addres?(user.hash[:addres])
+  def validation_age?(age)
+    if age.class != NilClass
+      if age_string?(age)
+        raise InvalidStringError, 'The argunment is a String'
+      elsif age_negative?(age) || age_float?(age)
+        raise InvalidNumberError, 'The argument is negative or float'
+      end
+    end
+  end
+
+  def validation_addres?(addres)
+    if addres.class != NilClass
+      raise InvalidNumberError, 'The argument is float' if addres_float?(addres)
+    end
   end
 
   def invalid_first_name?(first_name)
@@ -38,7 +74,6 @@ module Validation
     elsif first_name_integer?(first_name) || first_name_float?(first_name)
       raise InvalidNumberError, 'The argunment is a numeric'
     end
-    first_name
   end
 
   def first_name_empty?(first_name)
@@ -59,7 +94,6 @@ module Validation
     elsif last_name_integer?(last_name) || last_name_float?(last_name)
       raise InvalidNumberError, 'The argunment is a numeric'
     end
-    last_name
   end
 
   def last_name_empty?(last_name)
@@ -79,7 +113,7 @@ module Validation
       raise EmptyError, 'The argument is empty'
     elsif email_integer?(email) || email_float?(email)
       raise InvalidNumberError, 'The argunment is a numeric'
-    elsif is_email?(email) == nil
+    elsif email?(email).nil?
       raise InvalidEmailError, 'Email is invalid'
     end
     email
@@ -97,7 +131,7 @@ module Validation
     email.class == Float
   end
 
-  def is_email?(email)
+  def email?(email)
     email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   end
 
@@ -105,17 +139,16 @@ module Validation
     if age_string?(age)
       raise InvalidStringError, 'The argunment is a String'
     elsif age_negative?(age) || age_float?(age)
-      raise InvalidNumberError, 'The argument is negative or float' 
+      raise InvalidNumberError, 'The argument is negative or float'
     end
-    age
   end
 
   def age_string?(age)
-    age.class == String && age.to_i == 0
+    age.class == String && age.to_i.zero?
   end
 
   def age_negative?(age)
-    age.to_i < 0
+    age.to_i.negative?
   end
 
   def age_float?(age)
@@ -123,9 +156,7 @@ module Validation
   end
 
   def invalid_addres?(addres)
-    if addres_float?(addres)
-      raise InvalidNumberError, 'The argument is float'
-    end
+    raise InvalidNumberError, 'The argument is float' if addres_float?(addres)
   end
 
   def addres_float?(addres)
