@@ -1,165 +1,117 @@
-class EmptyError < StandardError; end
-class InvalidStringError < StandardError; end
-class InvalidNumberError < StandardError; end
-class InvalidEmailError < StandardError; end
+# frozen_string_literal: true
 
+class EmptyError < StandardError; end
+class StringError < StandardError; end
+class NumberError < StandardError; end
+class EmailError < StandardError; end
+
+# Module Validation
 module Validation
   def validation_create(user)
-    first_name = invalid_first_name?(user.hash[:first_name])
-    last_name = invalid_last_name?(user.hash[:last_name])
-    email = invalid_email?(user.hash[:email])
-    age = invalid_age?(user.hash[:age])
-    addres = invalid_addres?(user.hash[:addres])
+    invalid_first_name?(user.hash[:first_name])
+    invalid_last_name?(user.hash[:last_name])
+    invalid_email?(user.hash[:email])
+    invalid_age?(user.hash[:age])
+    invalid_address?(user.hash[:address])
+  end
+
+  def keys
+    %i[first_name last_name email age address]
   end
 
   def validation_update(hash)
-    first_name = validation_first_name?(hash[:first_name])
-    last_name = validation_last_name?(hash[:last_name])
-    email = validation_email?(hash[:email])
-    age = validation_age?(hash[:age])
-    addres = validation_addres?(hash[:addres])
+    validation_first_name?(hash[:first_name])
+    validation_last_name?(hash[:last_name])
+    validation_email?(hash[:email])
+    validation_age?(hash[:age])
+    validation_address?(hash[:address])
   end
 
-  def validation_first_name?(first_name)
-    if first_name.class != NilClass
-      if first_name_empty?(first_name)
-        raise EmptyError, 'The argument is empty'
-      elsif first_name_integer?(first_name) || first_name_float?(first_name)
-        raise InvalidNumberError, 'The argunment is a numeric'
-      end
-    end
+  def field_empty?(field)
+    field.nil? || field == ''
   end
 
-  def validation_last_name?(last_name)
-    if last_name.class != NilClass
-      if last_name_empty?(last_name)
-        raise EmptyError, 'The argument is empty'
-      elsif last_name_integer?(last_name) || last_name_float?(last_name)
-        raise InvalidNumberError, 'The argunment is a numeric'
-      end
-    end
+  def field_integer?(field)
+    field.class == Integer
   end
 
-  def validation_email?(email)
-    if email.class != NilClass
-      if email_empty?(email)
-        raise EmptyError, 'The argument is empty'
-      elsif email_integer?(email) || email_float?(email)
-        raise InvalidNumberError, 'The argunment is a numeric'
-      elsif email?(email).nil?
-        raise InvalidEmailError, 'Email is invalid'
-      end
-    end
+  def field_float?(field)
+    field.class == Float
   end
 
-  def validation_age?(age)
-    if age.class != NilClass
-      if age_string?(age)
-        raise InvalidStringError, 'The argunment is a String'
-      elsif age_negative?(age) || age_float?(age)
-        raise InvalidNumberError, 'The argument is negative or float'
-      end
-    end
-  end
-
-  def validation_addres?(addres)
-    if addres.class != NilClass
-      raise InvalidNumberError, 'The argument is float' if addres_float?(addres)
-    end
-  end
-
-  def invalid_first_name?(first_name)
-    if first_name_empty?(first_name)
-      raise EmptyError, 'The argument is empty'
-    elsif first_name_integer?(first_name) || first_name_float?(first_name)
-      raise InvalidNumberError, 'The argunment is a numeric'
-    end
-  end
-
-  def first_name_empty?(first_name)
-    first_name.nil? || first_name == ''
-  end
-
-  def first_name_integer?(first_name)
-    first_name.class == Integer
-  end
-
-  def first_name_float?(first_name)
-    first_name.class == Float
-  end
-
-  def invalid_last_name?(last_name)
-    if last_name_empty?(last_name)
-      raise EmptyError, 'The argument is empty'
-    elsif last_name_integer?(last_name) || last_name_float?(last_name)
-      raise InvalidNumberError, 'The argunment is a numeric'
-    end
-  end
-
-  def last_name_empty?(last_name)
-    last_name.nil? || last_name == ''
-  end
-
-  def last_name_integer?(last_name)
-    last_name.class == Integer
-  end
-
-  def last_name_float?(last_name)
-    last_name.class == Float
-  end
-
-  def invalid_email?(email)
-    if email_empty?(email)
-      raise EmptyError, 'The argument is empty'
-    elsif email_integer?(email) || email_float?(email)
-      raise InvalidNumberError, 'The argunment is a numeric'
-    elsif email?(email).nil?
-      raise InvalidEmailError, 'Email is invalid'
-    end
-    email
-  end
-
-  def email_empty?(email)
-    email.nil? || email == ''
-  end
-
-  def email_integer?(email)
-    email.class == Integer
-  end
-
-  def email_float?(email)
-    email.class == Float
+  def field_string?(field)
+    field.class == String || field.to_i.zero?
   end
 
   def email?(email)
     email =~ /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   end
 
-  def invalid_age?(age)
-    if age_string?(age)
-      raise InvalidStringError, 'The argunment is a String'
-    elsif age_negative?(age) || age_float?(age)
-      raise InvalidNumberError, 'The argument is negative or float'
-    end
-  end
-
-  def age_string?(age)
-    age.class == String && age.to_i.zero?
-  end
-
   def age_negative?(age)
-    age.to_i.negative?
+    age.negative?
   end
 
-  def age_float?(age)
-    age.class == Float
+  def validation_first_name?(first_name)
+    return if first_name.class == NilClass
+
+    raise EmptyError, 'The first name is an empty' if field_empty?(first_name)
+    raise NumberError, 'The first name is a integer' if field_integer?(first_name)
+    raise NumberError, 'The first name is a float' if field_float?(first_name)
   end
 
-  def invalid_addres?(addres)
-    raise InvalidNumberError, 'The argument is float' if addres_float?(addres)
+  def invalid_first_name?(first_name)
+    raise EmptyError, 'The first name is an empty' if field_empty?(first_name)
+    raise NumberError, 'The first name is a integer' if field_integer?(first_name)
+    raise NumberError, 'The first name is a float' if field_float?(first_name)
   end
 
-  def addres_float?(addres)
-    addres.class == Float
+  def validation_last_name?(last_name)
+    return if last_name.class == NilClass
+
+    raise EmptyError, 'The last name is an empty' if field_empty?(last_name)
+    raise NumberError, 'The last name is a integer' if field_integer?(last_name)
+    raise NumberError, 'The last name is a float' if field_float?(last_name)
+  end
+
+  def invalid_last_name?(last_name)
+    raise EmptyError, 'The last name is an empty' if field_empty?(last_name)
+    raise NumberError, 'The last name is a integer' if field_integer?(last_name)
+    raise NumberError, 'The last name is a float' if field_float?(last_name)
+  end
+
+  def validation_email?(email)
+    return if email.class == NilClass
+
+    raise EmptyError, 'The email is an empty' if field_empty?(email)
+    raise EmailError, 'Email is invalid' if email?(email).nil?
+  end
+
+  def invalid_email?(email)
+    raise EmptyError, 'The email is an empty' if field_empty?(email)
+    raise EmailError, 'Email is invalid' if email?(email).nil?
+  end
+
+  def validation_age?(age)
+    return if age.class == NilClass
+
+    raise NumberError, 'The age is a float' if field_float?(age)
+    raise StringError, 'The age is string' if field_string?(age)
+    raise NumberError, 'The age is negative' if age_negative?(age)
+  end
+
+  def invalid_age?(age)
+    raise NumberError, 'The age is a float' if field_float?(age)
+    raise StringError, 'The age is string' if field_string?(age)
+    raise NumberError, 'The age is negative' if age_negative?(age)
+  end
+
+  def validation_address?(address)
+    return if address.class == NilClass
+
+    raise NumberError, 'The address is a float' if field_float?(address)
+  end
+
+  def invalid_address?(address)
+    raise NumberError, 'The address is a float' if field_float?(address)
   end
 end
